@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.5-alpine
+    ports:
+      - "5432:5432"
+    environment:
+        POSTGRES_DB: tacocloud
+        POSTGRES_USER : postgres
+        POSTGRES_PASSWORD: 123
+    volumes:
+      - ./.jmix/postgres:/var/lib/postgresql/data
+

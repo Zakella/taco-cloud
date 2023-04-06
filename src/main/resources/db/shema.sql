@@ -1,31 +1,31 @@
 
-CREATE TABLE IF NOT EXISTS INGREDIENT (
+CREATE TABLE IF NOT EXISTS Ingredient (
                                           id VARCHAR(4) NOT NULL,
                                           name VARCHAR(25) NOT NULL,
                                           type VARCHAR(10) NOT NULL
 );
 
-create table if not exists TACO (
-                                    id identity,
+create table if not exists Taco (
+                                    id SERIAL primary key ,
                                     name varchar(50) not null,
                                     createdAt timestamp not null
 );
 
-create table if not exists TACO_INGREDIENTS (
+create table if not exists Taco_Ingredients (
                                                 taco bigint not null,
                                                 ingredient varchar(4) not null
 );
 
-alter table TACO_INGREDIENTS
+alter table Taco_Ingredients
     add foreign key (taco) references Taco(id);
 
-ALTER TABLE INGREDIENT ADD PRIMARY KEY (ID);
+ALTER TABLE Ingredient ADD PRIMARY KEY (id);
 
-alter table TACO_INGREDIENTS
-    add foreign key (INGREDIENT) references INGREDIENT(ID);
+alter table Taco_Ingredients
+    add foreign key (ingredient) references Ingredient(id);
 
-create table if not exists TACO_ORDER (
-                                          id identity,
+create table if not exists Taco_Order (
+                                          id SERIAL primary key ,
                                           deliveryName varchar(50) not null,
                                           deliveryStreet varchar(50) not null,
                                           deliveryCity varchar(50) not null,
@@ -39,12 +39,21 @@ create table if not exists TACO_ORDER (
 
 
 
-CREATE TABLE IF NOT EXISTS TACO_ORDER_TACOS (
+CREATE TABLE IF NOT EXISTS Taco_Order_Tacos (
                                                 tacoOrder BIGINT NOT NULL,
                                                 taco BIGINT NOT NULL
 );
 
-alter table TACO_ORDER_TACOS
+alter table Taco_Order_Tacos
     add foreign key (tacoOrder) references Taco_Order(id);
-alter table TACO_ORDER_TACOS
+alter table Taco_Order_Tacos
     add foreign key (taco) references Taco(id);
+
+alter  table taco ADD taco_order_key BIGINT not null;
+alter table taco add taco_order bigint not null ;
+
+create table if not exists Ingredient_Ref (
+                                              ingredient varchar(4) not null,
+                                              taco bigint not null,
+                                              taco_key bigint not null
+);

@@ -1,7 +1,7 @@
-delete from INGREDIENT;
-delete from TACO_INGREDIENTS;
-delete from TACO;
-delete from TACO_ORDER;
+delete from Ingredient;
+delete from Taco_Ingredients;
+delete from Taco;
+delete from Taco_Order;
 
 delete from Ingredient;
 insert into Ingredient (id, name, type)
