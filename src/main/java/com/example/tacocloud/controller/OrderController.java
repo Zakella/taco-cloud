@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-@Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
     private OrderRepository orderRepo;
+
+    public OrderController(OrderRepository orderRepo) {
+        this.orderRepo = orderRepo;
+    }
 
     @GetMapping("/current")
     public String orderForm() {
@@ -27,13 +30,13 @@ public class OrderController {
 
     @PostMapping
     public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus) {
-
         if (errors.hasErrors()) {
             return "orderForm";
         }
+
         orderRepo.save(order);
-        log.info("Order submitted: {}",order);
         sessionStatus.setComplete();
+
         return "redirect:/";
     }
 

@@ -1,9 +1,10 @@
 spring:
-  datasource:
-   url: jdbc:postgresql://localhost:5432/tacocloud
-   driverClassName: org.postgresql.Driver
-   username: postgres
-   password: 123
+  data:
+  cassandra:
+    keyspace-name: taco_cloud
+    schema-action: recreate
+    local-datacenter: datacenter1
+
 
 
 
