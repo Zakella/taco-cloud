@@ -39,7 +39,6 @@ public class DesignTacoController {
         this.ingredientRepo = ingredientRepo;
         this.tacoRepo = tacoRepo;
     }
-
     @ModelAttribute(name = "order")
     public TacoOrder order() {
         return new TacoOrder();
@@ -50,23 +49,26 @@ public class DesignTacoController {
         return new Taco();
     }
 
+    //end::injectingDesignRepository[]
+
+    //tag::injectingIngredientRepository[]
 
     @GetMapping
     public String showDesignForm(Model model) {
-        List<Ingredient> ingredients = ingredientRepo.findAll();
-//        List<Ingredient> ingredients = (List<Ingredient>) ingredientRepo.findAll().;
-//        List<Ingredient> ingredients = new ArrayList<>();
-//        ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-//
-//        Type[] types = Ingredient.Type.values();
-//        for (Type type : types) {
-//            model.addAttribute(type.toString().toLowerCase(),
-//                    filterByType(ingredients, type));
-//        }
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredientRepo.findAll().forEach(ingredients::add);
+
+        Type[] types = Ingredient.Type.values();
+        for (Type type : types) {
+            model.addAttribute(type.toString().toLowerCase(),
+                    filterByType(ingredients, type));
+        }
 
         return "design";
     }
+    //end::injectingIngredientRepository[]
 
+    //tag::injectingDesignRepository[]
     @PostMapping
     public String processDesign(
             @Valid Taco taco, Errors errors,
@@ -91,5 +93,6 @@ public class DesignTacoController {
                 .filter(x -> x.getType().equals(type))
                 .collect(Collectors.toList());
     }
+
 
 }

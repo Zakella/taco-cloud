@@ -2,11 +2,11 @@
 CREATE TABLE IF NOT EXISTS Ingredient (
                                           id VARCHAR(4) NOT NULL,
                                           name VARCHAR(25) NOT NULL,
-                                          type VARCHAR(10) NOT NULL
+                                          type VARCHAR(150) NOT NULL
 );
 
 create table if not exists Taco (
-                                    id SERIAL primary key ,
+                                    id int primary key ,
                                     name varchar(50) not null,
                                     createdAt timestamp not null
 );
@@ -25,7 +25,7 @@ alter table Taco_Ingredients
     add foreign key (ingredient) references Ingredient(id);
 
 create table if not exists Taco_Order (
-                                          id SERIAL primary key ,
+                                          id int primary key ,
                                           deliveryName varchar(50) not null,
                                           deliveryStreet varchar(50) not null,
                                           deliveryCity varchar(50) not null,
